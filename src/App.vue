@@ -1,35 +1,88 @@
 <template>
-  <main id="app" class="font-body bg-gray-800 min-h-screen text-gray-200 p-2">
-    <Title text="Maho"/>
-    <ul class="flex">
-      <li v-for="card in cards" :key="card.code" class="mx-1">{{card.code}}</li>
-    </ul>
+  <main id="app" class="font-body bg-gray-800 min-h-screen text-gray-200 p-2 flex items-stretch">
+    <section class="p-4 border-gray-100 border-4 relative w-full">
+      <div class="absolute top-0 left-0 right-0 text-center -mt-2 leading-none mx-auto">
+        <Title text="Maho" class="inline px-2 bg-gray-800"/>
+      </div>
 
-    <ul class="flex">
-      <p @click="arrangeCards(pile2, pile1, pile3)">Pile1</p>
-      <li v-for="pileOne in pile1" :key="pileOne.code" class="mx-1">{{pileOne.code}}</li>
-    </ul>
+      <div class="flex flex-col w-full items-center h-full justify-between" v-if="claraSteps < 6">
+        <div class="flex items-center h-full">
+          <BoxText :text="claraText[claraSteps]" />
+          <img src="./assets/clara.svg" alt="" class="w-24">
+        </div>
+        <div class="flex flex-col items-end w-full">
+          <button @click="claraSteps = claraSteps + 1" v-if="claraSteps < 5"><span class="text-xs">Continue</span></button>
+          <button @click="start()" v-else><span class="text-xs">Start</span></button>
+        </div>
+      </div>
 
-    <ul class="flex">
-      <p @click="arrangeCards(pile1, pile2, pile3)">Pile2</p>
-      <li v-for="pileTwo in pile2" :key="pileTwo.code" class="mx-1">{{pileTwo.code}}</li>
-    </ul>
+      <div v-else class="flex flex-col w-full items-center h-full justify-between">
+        <BoxText :text="`Step ${step + 1}`" v-if="step <= 2" />
 
-    <ul class="flex">
-      <p @click="arrangeCards(pile1, pile3, pile2)">Pile3</p>
-      <li v-for="pileThree in pile3" :key="pileThree.code" class="mx-1">{{pileThree.code}}</li>
-    </ul>
+        <div v-if="step <= 2" class="flex justify-around w-full h-full">
+          <div class="flex flex-col w-1/4">
+            <div @click="mini = !mini">
+              <Card
+                v-for="pileOne in pile1"
+                :key="pileOne.code"
+                :value="pileOne.value"
+                :mini="mini"
+                :suit="pileOne.suit"
+                :code="pileOne.code"
+              />
+            </div>
+            <button class="mt-8" @click="arrangeCards(pile2, pile1, pile3)">1</button>
+          </div>
 
-    <div v-if="step === 3">
-      <p>your card is: {{handCards[10].code}}</p>
-    </div>
+          <div class="flex flex-col w-1/4">
+            <div @click="mini = !mini">
+              <Card
+                v-for="pileTwo in pile2"
+                :key="pileTwo.code"
+                :value="pileTwo.value"
+                :mini="mini"
+                :suit="pileTwo.suit"
+                :code="pileTwo.code"
+              />
+            </div>
+            <button class="mt-8" @click="arrangeCards(pile1, pile2, pile3)">2</button>
+          </div>
 
-    <button class="px-4 py-2 border border-gray-400" @click="dealCards">Deal cards</button>
+          <div class="flex flex-col w-1/4">
+            <div @click="mini = !mini">
+              <Card
+                v-for="pileThree in pile3"
+                :key="pileThree.code"
+                :value="pileThree.value"
+                :mini="mini"
+                :suit="pileThree.suit"
+                :code="pileThree.code"
+              />
+            </div>
+            <button class="mt-8" @click="arrangeCards(pile1, pile3, pile2)">3</button>
+          </div>
+        </div>
+
+        <div v-else class="flex flex-col justify-center items-center">
+          <div class="flex items-center h-full">
+              <BoxText text="Your card is..." />
+              <img src="./assets/clara.svg" alt="" class="w-24 mb-3">
+          </div>
+          <div class="w-32">
+            <Card :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
+          </div>
+          <button @click="again()"><span class="text-xs">Again</span></button>
+        </div>
+      </div>
+
+    </section>
   </main>
 </template>
 
 <script>
 import Title from './components/Title.vue'
+import Card from './components/Card.vue'
+import BoxText from './components/BoxText'
 
 export default {
   name: 'app',
@@ -41,11 +94,23 @@ export default {
       pile2: [],
       pile3: [],
       handCards: [],
-      step: 0
+      step: 0,
+      mini: true,
+      claraSteps: 0,
+      claraText: [
+        "Hi! I'm Clara Oswald! I love magic! Can I show you my favorite trick?",
+        'Cool! I will show you 3 columns of piles of cards...',
+        "And you need to choose one card of the piles. And don't tell me the card!",
+        'When you choose the card, click on the number of the pile',
+        'You will need to point to me three times to magic works!',
+        "Let's start?"
+      ]
     }
   },
   components: {
-    Title
+    Title,
+    Card,
+    BoxText
   },
   methods: {
     getDeck () {
@@ -107,6 +172,14 @@ export default {
       this.pile1 = []
       this.pile2 = []
       this.pile3 = []
+    },
+    start () {
+      this.claraSteps = this.claraSteps + 1
+      this.dealCards(true)
+    },
+    again () {
+      this.step = 0
+      this.dealCards()
     }
   },
   mounted () {
@@ -116,3 +189,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button {
+  @apply px-4 py-2 border-4 border-gray-400 mb-1 inline-block whitespace-no-wrap text-sm
+}
+</style>
