@@ -1,7 +1,5 @@
 <template>
-  <div class="hello">
-    <h1 class="text-4xl bold">{{ text }}</h1>
-  </div>
+  <h1 class="text-4xl bold">{{ text }}</h1>
 </template>
 
 <script>
