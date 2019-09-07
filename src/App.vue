@@ -2,7 +2,7 @@
   <main id="app" class="font-body bg-gray-800 min-h-screen text-gray-200 p-2 flex items-stretch">
     <section class="p-4 border-gray-100 border-4 relative w-full">
       <div class="absolute top-0 left-0 right-0 text-center -mt-2 leading-none mx-auto">
-        <Title text="Maho" class="inline px-2 bg-gray-800"/>
+        <Title text="Clara, the wizard" class="inline px-2 bg-gray-800"/>
       </div>
 
       <div class="flex flex-col w-full items-center h-full justify-between" v-if="claraSteps < 6">
