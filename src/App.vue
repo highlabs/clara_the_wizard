@@ -6,19 +6,23 @@
     </ul>
 
     <ul class="flex">
-      <p>Pile1</p>
+      <p @click="arrangeCards(pile2, pile1, pile3)">Pile1</p>
       <li v-for="pileOne in pile1" :key="pileOne.code" class="mx-1">{{pileOne.code}}</li>
     </ul>
 
     <ul class="flex">
-      <p>Pile2</p>
+      <p @click="arrangeCards(pile1, pile2, pile3)">Pile2</p>
       <li v-for="pileTwo in pile2" :key="pileTwo.code" class="mx-1">{{pileTwo.code}}</li>
     </ul>
 
     <ul class="flex">
-      <p>Pile3</p>
+      <p @click="arrangeCards(pile1, pile3, pile2)">Pile3</p>
       <li v-for="pileThree in pile3" :key="pileThree.code" class="mx-1">{{pileThree.code}}</li>
     </ul>
+
+    <div v-if="step === 3">
+      <p>your card is: {{handCards[10].code}}</p>
+    </div>
 
     <button class="px-4 py-2 border border-gray-400" @click="dealCards">Deal cards</button>
   </main>
@@ -36,7 +40,8 @@ export default {
       pile1: [],
       pile2: [],
       pile3: [],
-      pile3: []
+      handCards: [],
+      step: 0
     }
   },
   components: {
@@ -64,14 +69,13 @@ export default {
           self.cards = json.cards
         })
     },
-    dealCards () {
+    dealCards (hand) {
       if (this.cards.length === 0) {
         this.getDeck()
         return false
       }
       this.resetPiles()
-
-      const cards = this.cards
+      const cards = hand ? this.cards : this.handCards
       let pile = 0
       for (let index = 0; index < cards.length; index++) {
         if (pile > 2) pile = 0
@@ -92,6 +96,12 @@ export default {
 
         pile++
       }
+    },
+    arrangeCards (first, middle, last) {
+      let pileOfCards = [...first, ...middle, ...last]
+      this.handCards = pileOfCards
+      this.dealCards()
+      this.step = this.step + 1
     },
     resetPiles () {
       this.pile1 = []
