@@ -35,6 +35,7 @@ export default {
       cards: [],
       pile1: [],
       pile2: [],
+      pile3: [],
       pile3: []
     }
   },
@@ -68,6 +69,7 @@ export default {
         this.getDeck()
         return false
       }
+      this.resetPiles()
 
       const cards = this.cards
       let pile = 0
@@ -90,6 +92,11 @@ export default {
 
         pile++
       }
+    },
+    resetPiles () {
+      this.pile1 = []
+      this.pile2 = []
+      this.pile3 = []
     }
   },
   mounted () {
