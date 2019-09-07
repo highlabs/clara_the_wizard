@@ -1,17 +1,17 @@
 <template>
   <div
-    class="bg-gray-300 p-2 mx-1 border-black rounded"
+    class="bg-gray-300 p-2 mx-1 border-black border-2 rounded w-full flex flex-col justify-between items-center"
     :class="mini ? '-mb-3': ' mb-4'"
   >
-    <header class="flex text-black">
+    <header class="flex text-black w-full">
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-4 mr-1">
-      <span class="text-sm">{{value}}</span>
+      <span class="text-sm">{{name}}</span>
     </header>
-    <div class="p-8" v-if="!mini">
-      <img :src="suitURI" :alt="`${value} of ${suit}`">
+    <div class="py-6" v-if="!mini">
+      <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-12">
     </div>
-    <footer v-if="!mini" class="flex justify-end text-black">
-      <span class="text-sm mr-1">{{value}}</span>
+    <footer v-if="!mini" class="flex justify-end text-black w-full">
+      <span class="text-sm mr-1">{{name}}</span>
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-4">
     </footer>
   </div>
@@ -50,6 +50,9 @@ export default {
           break
       }
       return suit
+    },
+    name () {
+      return this.value.slice(0, 1)
     }
   }
 }
