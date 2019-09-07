@@ -4,6 +4,23 @@
     <ul class="flex">
       <li v-for="card in cards" :key="card.code" class="mx-1">{{card.code}}</li>
     </ul>
+
+    <ul class="flex">
+      <p>Pile1</p>
+      <li v-for="pileOne in pile1" :key="pileOne.code" class="mx-1">{{pileOne.code}}</li>
+    </ul>
+
+    <ul class="flex">
+      <p>Pile2</p>
+      <li v-for="pileTwo in pile2" :key="pileTwo.code" class="mx-1">{{pileTwo.code}}</li>
+    </ul>
+
+    <ul class="flex">
+      <p>Pile3</p>
+      <li v-for="pileThree in pile3" :key="pileThree.code" class="mx-1">{{pileThree.code}}</li>
+    </ul>
+
+    <button class="px-4 py-2 border border-gray-400" @click="dealCards">Deal cards</button>
   </main>
 </template>
 
@@ -16,6 +33,9 @@ export default {
     return {
       firstDeck: null,
       cards: [],
+      pile1: [],
+      pile2: [],
+      pile3: []
     }
   },
   components: {
@@ -43,6 +63,34 @@ export default {
           self.cards = json.cards
         })
     },
+    dealCards () {
+      if (this.cards.length === 0) {
+        this.getDeck()
+        return false
+      }
+
+      const cards = this.cards
+      let pile = 0
+      for (let index = 0; index < cards.length; index++) {
+        if (pile > 2) pile = 0
+
+        switch (pile) {
+          case 0:
+            this.pile1.push(cards[index])
+            break
+          case 1:
+            this.pile2.push(cards[index])
+            break
+          case 2:
+            this.pile3.push(cards[index])
+            break
+          default:
+            break
+        }
+
+        pile++
+      }
+    }
   },
   mounted () {
     this.$nextTick(function () {
