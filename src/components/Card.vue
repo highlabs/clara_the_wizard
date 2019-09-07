@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-300 p-2 mx-1 border-black border-2 rounded w-full flex flex-col justify-between items-center"
+    class="bg-gray-300 p-2 border-black border-2 rounded w-full flex flex-col justify-between items-center"
     :class="mini ? '-mb-3': ' mb-4'"
   >
     <header class="flex text-black w-full">
