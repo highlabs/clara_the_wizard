@@ -1,6 +1,9 @@
 <template>
   <main id="app" class="font-body bg-gray-800 min-h-screen text-gray-200 p-2">
     <Title text="Maho"/>
+    <ul class="flex">
+      <li v-for="card in cards" :key="card.code" class="mx-1">{{card.code}}</li>
+    </ul>
   </main>
 </template>
 
@@ -12,6 +15,7 @@ export default {
   data () {
     return {
       firstDeck: null,
+      cards: [],
     }
   },
   components: {
@@ -28,6 +32,15 @@ export default {
           const { deck_id: deckId } = json
           self.firstDeck = json
           self.getCards(deckId)
+        })
+    },
+    getCards (deckId) {
+      const self = this
+      fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=21`)
+        .then(response => {
+          return response.json()
+        }).then(json => {
+          self.cards = json.cards
         })
     },
   },
