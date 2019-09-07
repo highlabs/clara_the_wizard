@@ -1,6 +1,6 @@
 <template>
   <main id="app" class="font-body bg-gray-800 min-h-screen text-gray-200 p-2">
-    <Title msg="Maho"/>
+    <Title text="Maho"/>
   </main>
 </template>
 
