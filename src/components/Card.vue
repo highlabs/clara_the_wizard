@@ -1,7 +1,7 @@
 <template>
   <div
-    class="bg-gray-300 p-2 border-black border-2 rounded w-full flex flex-col justify-between items-center"
-    :class="mini ? '-mb-3': ' mb-4'"
+    class="bg-gray-300 p-2 border-black border-2 rounded w-full flex flex-col justify-between items-center md:min-h-full"
+    :class="mini ? '-mb-3 md:w-16 md:-mr-5': 'mb-4 md:mb-0 md:mr-3 md:w-24'"
   >
     <header class="flex text-black w-full">
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-4 mr-1">

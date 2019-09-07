@@ -19,9 +19,9 @@
       <div v-else class="flex flex-col w-full items-center h-full justify-between">
         <BoxText :text="`Step ${step + 1}`" v-if="step <= 2" />
 
-        <div v-if="step <= 2" class="flex justify-around w-full h-full">
-          <div class="flex flex-col w-1/4">
-            <div @click="mini = !mini">
+        <div v-if="step <= 2" class="flex justify-around h-full w-full md:flex-col-reverse">
+          <div class="flex flex-col w-1/4 justify-center items-stretch md:flex-row-reverse md:w-full">
+            <div @click="mini = !mini" class="md:flex md:ml-4 md:h-40 md:justify-center">
               <Card
                 v-for="pileOne in pile1"
                 :key="pileOne.code"
@@ -31,11 +31,11 @@
                 :code="pileOne.code"
               />
             </div>
-            <button class="mt-8" @click="arrangeCards(pile2, pile1, pile3)">1</button>
+            <button class="mt-8 md:mt-1" @click="arrangeCards(pile2, pile1, pile3)">1</button>
           </div>
 
-          <div class="flex flex-col w-1/4">
-            <div @click="mini = !mini">
+          <div class="flex flex-col w-1/4 justify-center items-stretch md:flex-row-reverse md:w-full">
+            <div @click="mini = !mini" class="md:flex md:ml-4 md:h-40 md:justify-center">
               <Card
                 v-for="pileTwo in pile2"
                 :key="pileTwo.code"
@@ -45,11 +45,11 @@
                 :code="pileTwo.code"
               />
             </div>
-            <button class="mt-8" @click="arrangeCards(pile1, pile2, pile3)">2</button>
+            <button class="mt-8 md:mt-1" @click="arrangeCards(pile1, pile2, pile3)">2</button>
           </div>
 
-          <div class="flex flex-col w-1/4">
-            <div @click="mini = !mini">
+          <div class="flex flex-col w-1/4 justify-center items-stretch md:flex-row-reverse md:w-full">
+            <div @click="mini = !mini" class="md:flex md:ml-4 md:h-40 md:justify-center">
               <Card
                 v-for="pileThree in pile3"
                 :key="pileThree.code"
@@ -59,11 +59,11 @@
                 :code="pileThree.code"
               />
             </div>
-            <button class="mt-8" @click="arrangeCards(pile1, pile3, pile2)">3</button>
+            <button class="mt-8 md:mt-1" @click="arrangeCards(pile1, pile3, pile2)">3</button>
           </div>
         </div>
 
-        <div v-else class="flex flex-col justify-center items-center">
+        <div v-else class="flex flex-col justify-center items-center h-full">
           <div class="flex items-center h-full">
               <BoxText text="Your card is..." />
               <img src="./assets/clara.svg" alt="" class="w-24 mb-3">
@@ -71,7 +71,7 @@
           <div class="w-32">
             <Card :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
           </div>
-          <button @click="again()"><span class="text-xs">Again</span></button>
+          <button @click="again()" class="mt-3"><span class="text-xs">Again</span></button>
         </div>
       </div>
 
