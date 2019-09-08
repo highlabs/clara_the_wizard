@@ -8,9 +8,10 @@
         :claraSteps="claraSteps"
         @startClick="start"
         @incrementSteps="incrementClaraSteps"
+        ref="claraSteps"
       />
 
-      <div v-else class="flex flex-col w-full items-center h-full justify-between">
+      <div ref="magicContainer" v-else class="flex flex-col w-full items-center h-full justify-between">
         <BoxText :text="`Step ${step + 1}`" v-if="step <= 2" />
 
         <div v-if="step <= 2" class="flex justify-around h-full w-full md:flex-col">
@@ -45,7 +46,7 @@
               <img src="./assets/clara.svg" alt="" class="w-24 mb-3">
           </div>
           <div class="w-32 flex justify-center">
-            <Card class="m-2" :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
+            <Card class="m-2" :value="cards[10].value" :suit="cards[10].suit" :code="cards[10].code"/>
           </div>
           <Button @onClick="again()" text="Again" class="mt-3" />
         </div>
@@ -73,7 +74,6 @@ export default {
       pile1: [],
       pile2: [],
       pile3: [],
-      handCards: [],
       step: 0,
       mini: true,
       claraSteps: 0
@@ -93,19 +93,22 @@ export default {
       const { deck_id: deckId } = deck.data
 
       this.firstDeck = deck
-      this.getCards(deckId)
+      await this.getCards(deckId)
     },
     async getCards (deckId) {
       const cards = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=21`)
       this.cards = cards.data.cards
     },
-    dealCards (hand) {
+    async dealCards (hand) {
       if (this.cards.length === 0) {
-        this.getDeck()
+        await this.getDeck()
+        this.dealCards()
         return false
       }
       this.resetPiles()
-      const cards = hand ? this.cards : this.handCards
+
+      const cards = this.cards
+
       let pile = 0
       for (let index = 0; index < cards.length; index++) {
         if (pile > 2) pile = 0
@@ -129,7 +132,7 @@ export default {
     },
     arrangeCards (first, middle, last) {
       let pileOfCards = [...first, ...middle, ...last]
-      this.handCards = pileOfCards
+      this.cards = pileOfCards
       this.dealCards()
       this.step = this.step + 1
     },
@@ -140,7 +143,7 @@ export default {
     },
     start () {
       this.claraSteps = this.claraSteps + 1
-      this.dealCards(true)
+      this.dealCards()
     },
     incrementClaraSteps () {
       this.claraSteps = this.claraSteps + 1
@@ -152,9 +155,6 @@ export default {
       this.step = 0
       this.dealCards()
     }
-  },
-  async mounted () {
-    await this.getDeck()
   }
 }
 </script>
