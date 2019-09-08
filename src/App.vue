@@ -44,8 +44,8 @@
               <BoxText text="Your card is..." />
               <img src="./assets/clara.svg" alt="" class="w-24 mb-3">
           </div>
-          <div class="w-32">
-            <Card :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
+          <div class="w-32 flex justify-center">
+            <Card class="m-2" :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
           </div>
           <Button @onClick="again()" text="again" class="mt-3" />
         </div>
