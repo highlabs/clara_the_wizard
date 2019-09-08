@@ -28,7 +28,6 @@
                 :value="pileOne.value"
                 :mini="mini"
                 :suit="pileOne.suit"
-                :code="pileOne.code"
               />
             </div>
             <button class="mt-8 md:mt-1" @click="arrangeCards(pile2, pile1, pile3)">1</button>
@@ -42,7 +41,6 @@
                 :value="pileTwo.value"
                 :mini="mini"
                 :suit="pileTwo.suit"
-                :code="pileTwo.code"
               />
             </div>
             <button class="mt-8 md:mt-1" @click="arrangeCards(pile1, pile2, pile3)">2</button>
@@ -56,7 +54,6 @@
                 :value="pileThree.value"
                 :mini="mini"
                 :suit="pileThree.suit"
-                :code="pileThree.code"
               />
             </div>
             <button class="mt-8 md:mt-1" @click="arrangeCards(pile1, pile3, pile2)">3</button>
@@ -80,6 +77,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Title from './components/Title.vue'
 import Card from './components/Card.vue'
 import BoxText from './components/BoxText'
@@ -99,10 +97,10 @@ export default {
       claraSteps: 0,
       claraText: [
         "Hi! I'm Clara Oswald! I love magic! Can I show you my favorite trick?",
-        'Cool! I will show you 3 columns of piles of cards...',
-        "And you need to choose one card of the piles. And don't tell me the card!",
+        'Cool! I will show you 3 piles of cards...',
+        "And you need to choose one card in just one of the piles. And don't tell me the card!",
         'When you choose the card, click on the number of the pile',
-        'You will need to point to me three times to magic works!',
+        'You will need to point it to me three times for the magic to work!',
         "Let's start?"
       ]
     }
@@ -113,26 +111,16 @@ export default {
     BoxText
   },
   methods: {
-    getDeck () {
-      const self = this
-      fetch('https://deckofcardsapi.com/api/deck/new/')
-        .then(function (response) {
-          return response.json()
-        })
-        .then(function (json) {
-          const { deck_id: deckId } = json
-          self.firstDeck = json
-          self.getCards(deckId)
-        })
+    async getDeck () {
+      const deck = await axios.get('https://deckofcardsapi.com/api/deck/new/')
+      const { deck_id: deckId } = deck.data
+
+      this.firstDeck = deck
+      this.getCards(deckId)
     },
-    getCards (deckId) {
-      const self = this
-      fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=21`)
-        .then(response => {
-          return response.json()
-        }).then(json => {
-          self.cards = json.cards
-        })
+    async getCards (deckId) {
+      const cards = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=21`)
+      this.cards = cards.data.cards
     },
     dealCards (hand) {
       if (this.cards.length === 0) {
@@ -193,5 +181,10 @@ export default {
 <style scoped>
 button {
   @apply px-4 py-2 border-4 border-gray-400 mb-1 inline-block whitespace-no-wrap text-sm
+}
+
+#app {
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
 }
 </style>
