@@ -47,7 +47,7 @@
           <div class="w-32 flex justify-center">
             <Card class="m-2" :value="handCards[10].value" :suit="handCards[10].suit" :code="handCards[10].code"/>
           </div>
-          <Button @onClick="again()" text="again" class="mt-3" />
+          <Button @onClick="again()" text="Again" class="mt-3" />
         </div>
       </div>
 
