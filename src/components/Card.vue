@@ -1,16 +1,16 @@
 <template>
   <div
-    class="bg-gray-300 p-2 border-black border-2 rounded w-full flex flex-col justify-between items-center md:min-h-full"
-    :class="mini ? '-mb-3 md:w-16 md:-mr-5': 'mb-4 md:mb-0 md:mr-3 md:w-24'"
+    class="bg-white p-2 border-black border-2 rounded flex flex-col justify-between items-center h-42 w-24 max-w-full relative"
+    :class="mini ? '-mb-24 md:-mr-12 md:mb-1': 'mb-2 md:mb-1 mr-2'"
   >
     <header class="flex text-black w-full">
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-4 mr-1">
       <span class="text-sm">{{name}}</span>
     </header>
-    <div class="py-6" v-if="!mini">
+    <div class="py-2">
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-12">
     </div>
-    <footer v-if="!mini" class="flex justify-end text-black w-full">
+    <footer class="flex justify-end text-black w-full">
       <span class="text-sm mr-1">{{name}}</span>
       <img :src="suitURI" :alt="`${value} of ${suit}`" class="w-4">
     </footer>
