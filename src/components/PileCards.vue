@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-1/4 justify-center items-stretch md:flex-row-reverse md:w-full">
-    <div @click="$emit('toggleMini')" class="md:flex md:ml-4 md:h-40 md:justify-center">
+    <div ref="cardsContainer" @click="$emit('toggleMini')" class="md:flex md:ml-4 md:h-40 md:justify-center">
       <Card
         v-for="(card, index) in pile"
         :style="`z-index: ${index}`"
@@ -10,7 +10,7 @@
         :suit="card.suit"
       />
     </div>
-    <Button class="mt-8 md:mt-1" :text="pileNumber" @onClick="$emit('arrangeCards')" />
+    <Button ref="arrangeButton" class="mt-8 md:mt-1" :text="pileNumber" @onClick="$emit('arrangeCards')" />
   </div>
 </template>
 
