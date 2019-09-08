@@ -5,9 +5,9 @@
       <img src="../assets/clara.svg" alt="" class="w-24">
     </div>
     <div class="flex flex-col items-end w-full">
-      <Button @onClick="$emit('incrementSteps')" text="Continue" v-if="claraSteps < 5"/>
+      <Button ref="continueButton" @onClick="$emit('incrementSteps')" text="Continue" v-if="claraSteps < claraText.length - 1"/>
       <div v-else>
-        <Button @onClick="$emit('startClick')" text="Start" />
+        <Button ref="startButton" @onClick="$emit('startClick')" text="Start" />
       </div>
     </div>
   </div>
