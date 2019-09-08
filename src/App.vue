@@ -17,6 +17,7 @@
           <PileCards
             :pile="pile1"
             @toggleMini="toggleMiniCards"
+            :mini="mini"
             @arrangeCards="arrangeCards(pile2, pile1, pile3)"
             pileNumber="1"
           />
@@ -24,6 +25,7 @@
           <PileCards
             :pile="pile2"
             @toggleMini="toggleMiniCards"
+            :mini="mini"
             @arrangeCards="arrangeCards(pile1, pile2, pile3)"
             pileNumber="2"
           />
@@ -31,6 +33,7 @@
           <PileCards
             :pile="pile3"
             @toggleMini="toggleMiniCards"
+            :mini="mini"
             @arrangeCards="arrangeCards(pile1, pile3, pile2)"
             pileNumber="3"
           />
@@ -158,7 +161,7 @@ export default {
 
 <style>
 #app {
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 </style>
