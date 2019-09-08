@@ -2,10 +2,11 @@
   <div class="flex flex-col w-1/4 justify-center items-stretch md:flex-row-reverse md:w-full">
     <div @click="$emit('toggleMini')" class="md:flex md:ml-4 md:h-40 md:justify-center">
       <Card
-        v-for="card in pile"
+        v-for="(card, index) in pile"
+        :style="`z-index: ${index}`"
         :key="card.code"
         :value="card.value"
-        :mini="mini"
+        :mini="mini && index !== pile.length - 1"
         :suit="card.suit"
       />
     </div>
