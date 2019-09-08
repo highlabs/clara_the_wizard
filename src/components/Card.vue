@@ -40,6 +40,14 @@ export default {
   },
   computed: {
     suitURI () {
+      return this.getSuitURI()
+    },
+    name () {
+      return this.value.charAt(0)
+    }
+  },
+  methods: {
+    getSuitURI () {
       let suit = ''
       switch (this.suit) {
         case 'SPADES':
@@ -58,9 +66,6 @@ export default {
           break
       }
       return suit
-    },
-    name () {
-      return this.value.charAt(0)
     }
   }
 }
