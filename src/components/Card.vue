@@ -25,10 +25,18 @@ import diamonds from '../assets/diamonds.svg'
 
 export default {
   props: {
-    code: String,
-    suit: String,
-    value: String,
-    mini: Boolean
+    suit: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      default: ''
+    },
+    mini: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     suitURI () {
@@ -52,7 +60,7 @@ export default {
       return suit
     },
     name () {
-      return this.value.slice(0, 1)
+      return this.value.charAt(0)
     }
   }
 }
