@@ -2,6 +2,8 @@
 
 <img src="https://raw.githubusercontent.com/highlabs/clara_the_wizard/master/src/assets/clara.svg?sanitize=true" width="100">
 
+You can see it in action here: https://clarathewizard.netlify.com/
+
 ## Before the start
 
 This project runs in Vue.js. So you need some utilities to run:
